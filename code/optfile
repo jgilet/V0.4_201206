@@ -1,0 +1,46 @@
+# This file is where the user can provide for vital information.
+# It needs not to be executed. It will be read by various scripts, ans should stay where it is.
+#---------------------------------------------------------------
+
+###########################################################
+# MINIMAL INFORMATION TO BE PROVIDED BY THE USER.
+#
+# .
+# fcomp is the compiler used.
+# Example: fcomp="ifort", "gfortran" or "pgf95" will work. "xlf90" will unfortunately not work yet.
+fcomp=ifort
+
+# .
+# define_netcdf tells whether the netcdf output will be used: define_netcdf=T : netcdf will be used, define_netcdf=F : netcdf will not be used.
+define_netcdf=T
+
+
+#
+###########################################################
+# ADDITIONAL INFORMATION IN CASE OF A NON-STANDARD INSTALLATION.
+#
+# .
+# dirc is the directory where 2012_psom has been installed.
+# Example: dirc="/Users/jstudent/ocean_dynamics/2012_psom" 
+dirc=/Users/jgilet/work_on_structure/V0.34_2
+
+
+# netcdf_dir_lib, _dir_inc and _lnk_flag tell where the netcdf libraries may be found, not used if define_netcdf=F
+netcdf_dir_lib=-L/usr/local/lib 
+netcdf_dir_inc=-I/usr/local/include
+netcdf_lnk_flag=-lnetcdff -lnetcdf
+
+
+# .
+# lobj (2 lines only !) is the entire list of objects to be created in order to compile the executable.
+# It is splitted into the general routines (set of routines that enable the model to run) and the list of routines that enable netcdf output. The latter won't be used if define_netcdf=F.
+lobj_general=relaxation.o main.o ana_uvw.o init_tr.o inith_thermalwind.o ini_tracer.o mod_io.o momentum.o potdens.o facediv.o intpol_3rdorder.o srcface_3rdorder.o vcenter.o vface.o advect_quick.o cdiv.o cpcors.o cpfine.o efill.o mgrid.o prolong.o resid.o restrict.o mgpfill.o pbc.o sor.o spline.o seval.o sigma_toplayer.o staticsigma.o hsolve.o hfill.o chfine.o hbc.o vhydro.o evalrho_sT.o evalrho_rho.o evalrho.o psolve.o uvchy.o newcor.o newsrc.o coriolis.o hsave.o smooth.o setbc.o linerelax_periodicew.o dgtsl.o energy.o findz_topmoves.o meanh.o rpflattopog.o correctbc.o surfaceflux.o conadjust_sT.o diffusion_wind.o extremes_tr.o checks.o biharmonic.o density.o geostroph.o ran3.o  mprove.o dgtsv.o pcorrect.o  diag_vort.o calcskfc.o cfdiv.o pfilter.o viscous.o prepvisc.o srcface_nopy.o tracersource_nut.o windstress.o calc_dvdy.o streamfunction.o n2budget_topbot.o calcn2.o pvcalc.o sigma2z.o msg_error.o stprofile_X.o utils.o writebin.o
+lobj_netcdf=writecdf.o writemooring.o writexslice.o writeyslice.o writeksurf.o writeisopycnal.o writestrain.o outcdf.o 
+
+
+# .
+# lmod (1 line only !) is the entire list of modules to be created in order to compile the executable.
+# The dependencies between modules and of objects are (supposed to be) handled by tools/genmakefilel. You should not have to care about these. The order of the modules in lmod should not matter also.
+#lmod=header.mod grids.mod particles.mod
+lmod=header.mod particles.mod
+

@@ -1,0 +1,56 @@
+A. If you want a quick start, you can get started quite quickly by following these steps:
+
+* step 1: Please edit the ./optfile to set the compiler you will use:       fcomp=...  (ifort, pgf95 etc.)
+
+* Additional step if you choose to not use netcdf output,
+    - edit the file ./optfile          and set define_netcdf to F.
+    - edit the file ./model/inc/cppdef and undefine output_netcdf: 
+            #define file_output_cdf   by default
+            #undef file_output_cdf    if you do not want to use netcdf.
+
+* step 2: sh tools/configure.sh
+
+* step 3: sh tools/compile.sh
+
+* step 4: ./exe/nh < ./namelist
+
+You are done !
+
++============================================
+
++============================================
+
+Now, some explanations:
+
+* Step 2 will search for makedepend (necessary to create the makefile). The script will stop if makedepend is not installed.
+   If you chose to use netcdf, step2 will also search for nc-config. The code has been tested with netcdf4 libraries.
+    - if nc-config is present, it will make use of it to get the rights links.
+    - if not, you should link yourself by editing the ./optfile before step3.
+  Step 2 has two effects:
+    - It modifies ./optfile
+    - It modifies ./namelist
+
+  To sum up, if step 2 fails, you might have to install makedepend or install netcdf libraries (in case you want to use netcdf output).
+  After having done that, repeat step 2. 
+
+* Step 3 will 
+    - create the makefile in ./mkfile
+    - compile
+
+
+* Step 4 will start and run the model.
+  By default, the output will appear on the screen and the output files will go to ../output/.
+  By default, namelist has some values you might want to change. You can of course change these values by editing namelist and repeat step 4.
+
+
+If you want to customize later your use of the model, you can of course change manually the ./optfile and ./namelist files.
+
+========================================================================================
+
+========================================================================================
+
+
+If you want greater control, please refer to GET_STARTED_customized.
+
+
+
